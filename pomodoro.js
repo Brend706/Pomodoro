@@ -1,3 +1,21 @@
+//Coneccion con el html
+let clock = document.getElementById("clock");
+let cyclesInput = document.getElementById("cycles-input");
+let startButton = document.getElementById("start-button");
+let workTimeInput = document.getElementById("work-time");
+let breakTimeInput = document.getElementById("break-time");
+let restTimeInput = document.getElementById("rest-time");
+
+//Funcionalidad
+startButton.onclick = () => {
+    startPomodoro();
+};
+
+function startPomodoro(){
+    console.log("Started Pomodoro");
+    pomodoroController();
+}
+
 window.onload = () => {
     let currentTime; /*Tiempo que dure un pomodoro...*/
     let seconds = 0;
@@ -16,9 +34,10 @@ window.onload = () => {
             }
             console.log(currentTime, seconds);
             //
-            setTimeout( timer, 1000);
+            interval = setTimeout( timer, 1000);
         }else{
-            console.log("El temporizador termino...");
+            pomodoroController();
+            //console.log("El temporizador termino...");
         }
     }
 
