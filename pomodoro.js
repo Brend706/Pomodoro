@@ -1,5 +1,6 @@
 
 window.onload = () => {
+
     let currentTime; /*Tiempo que dure un pomodoro...*/
     let seconds = 0;
 
@@ -15,6 +16,42 @@ window.onload = () => {
     let restTimeInput = document.getElementById("rest-time");
     let clockMinutes, clickSeconds;
 
+    //Funcionalidad
+    startButton.onclick = () => {
+        populateVariables();
+        startPomodoro();
+    };
+
+    function startPomodoro() {
+        console.log("Started Pomodoro");
+        pomodoroController();
+    }
+
+    function populateVariables() {
+        console.log("populated variables");
+        workTime = workTimeInput.value;
+        breakTime = breakTimeInput.value;
+        restTime = restTimeInput.value;
+        cyclesGoal = cyclesInput.value;
+        timesCompleted = 0;
+    }
+
+    function updateClock() {
+        clockMinutes = formatNumbers(currentTime);
+        clickSeconds = formatNumbers(seconds);
+        clock.innerHTML = clockMinutes + ":" + clickSeconds;
+    }
+
+    function formatNumbers(time) {
+        let formarttedDigits;
+        if (time < 10) {
+            formarttedDigits = "0" + time;
+        } else {
+            formarttedDigits = time;
+        }
+        return formarttedDigits;
+    }
+
     function timer() {
         if (currentTime > 0 || seconds > 0) {
             if (seconds == 0) {
@@ -23,6 +60,7 @@ window.onload = () => {
             } else {
                 seconds--;
             }
+            updateClock();
             console.log(currentTime, seconds);
             //
             interval = setTimeout(timer, 1000);
@@ -66,42 +104,5 @@ window.onload = () => {
 
     function goalReached() {
         return cyclesGoal == cyclesCompleted;
-    }
-
-    
-    //Funcionalidad
-    startButton.onclick = () => {
-        populateVariables();
-        startPomodoro();
-    };
-
-    function startPomodoro() {
-        console.log("Started Pomodoro");
-        pomodoroController();
-    }
-
-    function populateVariables() {
-        console.log("populated variables");
-        workTime = workTimeInput.value;
-        breakTime = breakTimeInput.value;
-        restTime = restTimeInput.value;
-        cyclesGoal = cyclesInput.value;
-        timesCompleted = 0;
-    }
-
-    function updateClock() {
-        clockMinutes = formatNumbers(currentTime);
-        clickSeconds = formatNumbers(seconds);
-        clock.innerHTML = clockMinutes + ":" + clickSeconds;
-    }
-
-    function formatNumbers(time) {
-        let formarttedDigits;
-        if (time < 10) {
-            formarttedDigits = "0" + time;
-        } else {
-            formarttedDigits = time;
-        }
-        return formarttedDigits;
     }
 };
